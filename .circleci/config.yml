@@ -18,6 +18,9 @@ jobs:
       - run:
           name: Build React App
           command: npm run build
+      - run:
+          name: Zip Build Folder
+          command: mkdir tmp && zip -r tmp/build.zip build
       - save_cache:
           key: app-build-cache-{{ .Branch }}
           paths:
