@@ -20,18 +20,18 @@ jobs:
           command: npm run build
       - run:
           name: Zip Build Folder
-          command: mkdir tmp && zip -r tmp/build.zip build
+          command: tar -czf ./build.tar.gz ./build
       - save_cache:
           key: app-build-cache-{{ .Branch }}
           paths:
-            - ./build.zip
+            - ./build.tar.gz
       - run:
           name: Create the ~/artifacts directory if it doesn't exist
           command: mkdir -p ~/artifacts
         # Copy output to artifacts dir
       - run:
           name: Copy artifacts
-          command: cp -R build.zip dist public .output .next .docusaurus ~/artifacts 2>/dev/null || true
+          command: cp -R build.tar.gz dist public .output .next .docusaurus ~/artifacts 2>/dev/null || true
       - store_artifacts:
           path: ~/artifacts
           destination: node-build
